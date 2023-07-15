@@ -1,8 +1,48 @@
-
 <!DOCTYPE html>
 <html>
-<body>
-    <h1>Prompts Sent: <span id="count">0</span></h1>
+  <head>
+    <title>ChatGPT Prompt Counter</title>
+    <style>
+      body {
+        min-width: 250px;
+        font-family: Arial, sans-serif;
+        margin: 0 auto;
+        text-align: center;
+        background-color: #f7f7f7;
+        border: 1px solid gray;
+        padding: 20px; 
+      }
+      #container {
+        border: 2px solid #ccc;
+        border-radius: 15px;
+        padding: 6px;
+      }
+      #header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      #count {
+        font-size: 16px;
+      }
+      #timer {
+        font-size: 24px;
+        font-weight: bold;
+      }
+      #reset {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <div id="header">
+        <h1>Chat-GPT 4 Prompt Counter</h1>
+        <img id="reset" src="reset_icon.png" alt="Reset" width="20px" height="20px">
+      </div>
+      <h1>Prompts Sent: <span id="count">Loading...</span></h1>
+      <h1>Time Remaining: <span id="time">03:00:00</span></h1>
+    </div>
     <script src="popup.js"></script>
-</body>
+  </body>
 </html>
