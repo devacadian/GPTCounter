@@ -1,30 +1,27 @@
-let count = 0;
+let timestamps = [];
 let timer = null;
+let modelName = '';
 
 function startTimer() {
-    let startTime = Date.now();
     timer = setInterval(function() {
-        let elapsedTime = Math.floor((Date.now() - startTime) / 1000);
-        let remainingTime = Math.max(0, 3*60*60 - elapsedTime);
-        chrome.storage.local.set({'time': remainingTime}, function() {
-            if (remainingTime === 0) {
-                clearInterval(timer);
-                timer = null;
-                count = 0;
-                chrome.storage.local.set({'count': count});
-            }
-        });
+        let cutoff = Date.now() - 3*60*60*1000;
+        while (timestamps.length > 0 && timestamps[0] < cutoff) {
+            timestamps.shift();
+        }
+        let remainingTime = timestamps.length > 0 ? Math.max(0, 3*60*60 - Math.floor((Date.now() - timestamps[0]) / 1000)) : 3*60*60;
+        chrome.storage.local.set({'count': timestamps.length, 'time': remainingTime});
     }, 1000);
 }
 
 chrome.webRequest.onBeforeRequest.addListener(
     function(details) {
-        if (details.method === 'POST' && details.url.includes('https://chat.openai.com/backend-api/conversation')) {
-            count++;
-            if (count === 1) {
+        if (details.method === 'POST' && details.url.includes('https://chat.openai.com/backend-api/conversation') && !modelName.includes('GPT-3.5')) {
+            timestamps.push(Date.now());
+            if (timer === null) {
                 startTimer();
             }
-            chrome.storage.local.set({'count': count});
+            let remainingTime = Math.max(0, 3*60*60 - Math.floor((Date.now() - timestamps[0]) / 1000));
+            chrome.storage.local.set({'count': timestamps.length, 'time': remainingTime});
         }
     },
     {urls: ["<all_urls>"]}
@@ -32,9 +29,13 @@ chrome.webRequest.onBeforeRequest.addListener(
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.reset) {
-        count = 0;
-        chrome.storage.local.set({'count': count}, function() {
+        timestamps = [];
+        chrome.storage.local.set({'count': timestamps.length, 'time': 3*60*60}, function() {
             document.getElementById('count').textContent = '0';
+            document.getElementById('time').textContent = '3:00:00';
         });
+    }
+    if (request.model) {
+        modelName = request.model;
     }
 });
