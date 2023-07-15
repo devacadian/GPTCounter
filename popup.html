@@ -4,43 +4,79 @@
     <title>ChatGPT Prompt Counter</title>
     <style>
       body {
-        min-width: 250px;
+        min-width: 475px;
         font-family: Arial, sans-serif;
         margin: 0 auto;
         text-align: center;
-        background-color: #f7f7f7;
-        border: 1px solid gray;
+        background-color: #353740;
+        border: 1px solid #303038;
         padding: 20px; 
+        color: #c8d5db;
       }
       #container {
-        border: 2px solid #ccc;
+        border: 2px solid #303038;
         border-radius: 15px;
         padding: 6px;
+        background-color: #444654;
+        box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
       }
       #header {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        padding-top: 20px;
+      }
+      #header-text {
+        display: flex;
         align-items: center;
       }
+      #header-text img {
+        margin-right: 16px;
+        margin-bottom: 20px;
+      }
       #count {
-        font-size: 16px;
+        font-size: 22px;
+        font-weight: 550;
+        margin-right: 16px;
+        color: white;
       }
       #timer {
         font-size: 24px;
         font-weight: bold;
+        color: white;
       }
       #reset {
         cursor: pointer;
+      }
+      #reset-container {
+        background-color: #ab68ff;
+        border-radius: 6px;
+        display: inline-flex;
+        padding: 6px;
+        margin-bottom: 16px;
+        box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
+      }
+      h1 {
+        font-weight: 200;  /* Set to semibold */
+        padding-bottom: 20px;
       }
     </style>
   </head>
   <body>
     <div id="container">
       <div id="header">
-        <h1>Chat-GPT 4 Prompt Counter</h1>
-        <img id="reset" src="reset_icon.png" alt="Reset" width="20px" height="20px">
+        <div id="header-text">
+          <img src="openai_icon.png" alt="OpenAI" width="30px" height="30px">
+          <h1>Chat-GPT 4 Prompt Counter</h1>
+        </div>
       </div>
-      <h1>Prompts Sent: <span id="count">Loading...</span></h1>
+      <div style="display: flex; justify-content: center; align-items: center;">
+        <h1>Prompts Sent: <span id="count">Loading...</span></h1>
+        <div id="reset-container">
+          <img id="reset" src="reset_icon.png" alt="Reset" width="20px" height="20px">
+        </div>
+      </div>
       <h1>Time Remaining: <span id="time">03:00:00</span></h1>
     </div>
     <script src="popup.js"></script>

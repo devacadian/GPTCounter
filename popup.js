@@ -15,6 +15,8 @@ function updateDisplay() {
     chrome.storage.local.get(['count', 'time'], function(result) {
         document.getElementById('count').textContent = result.count || '0';
         document.getElementById('time').textContent = formatTime(result.time || 3*60*60);
+        document.getElementById('time').style.color = 'white';
+        document.getElementById('time').style.fontWeight = '550';
     });
 }
 
