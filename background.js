@@ -1,3 +1,4 @@
+let count = 0;
 let timer = null;
 
 function startTimer() {
@@ -9,7 +10,8 @@ function startTimer() {
             if (remainingTime === 0) {
                 clearInterval(timer);
                 timer = null;
-                chrome.storage.local.set({'count': 0});
+                count = 0;
+                chrome.storage.local.set({'count': count});
             }
         });
     }, 1000);
@@ -18,15 +20,11 @@ function startTimer() {
 chrome.webRequest.onBeforeRequest.addListener(
     function(details) {
         if (details.method === 'POST' && details.url.includes('https://chat.openai.com/')) {
-            chrome.storage.local.get(['count'], function(result) {
-                let count = result.count || 0;
-                count++;
-                if (count === 1) {
-                    if (timer) clearInterval(timer);
-                    startTimer();
-                }
-                chrome.storage.local.set({'count': count});
-            });
+            count++;
+            if (count === 1) {
+                startTimer();
+            }
+            chrome.storage.local.set({'count': count});
         }
     },
     {urls: ["<all_urls>"]}
@@ -34,9 +32,9 @@ chrome.webRequest.onBeforeRequest.addListener(
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.reset) {
-        if (timer) clearInterval(timer);
-        chrome.storage.local.set({'count': 0, 'time': 3*60*60}, function() {
-            startTimer();
+        count = 0;
+        chrome.storage.local.set({'count': count}, function() {
+            document.getElementById('count').textContent = '0';
         });
     }
 });

@@ -3,9 +3,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.getElementById('reset').addEventListener('click', function() {
         chrome.storage.local.set({'count': 0, 'time': 3*60*60}, function() {
-            chrome.runtime.sendMessage({reset: true});
             updateDisplay();
         });
+        chrome.runtime.sendMessage({reset: true});
     });
 
     setInterval(updateDisplay, 1000);
