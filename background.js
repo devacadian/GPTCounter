@@ -19,7 +19,7 @@ function startTimer() {
 
 chrome.webRequest.onBeforeRequest.addListener(
     function(details) {
-        if (details.method === 'POST' && details.url.includes('https://chat.openai.com/')) {
+        if (details.method === 'POST' && details.url.includes('https://chat.openai.com/backend-api/conversation')) {
             count++;
             if (count === 1) {
                 startTimer();
