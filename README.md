@@ -2,6 +2,8 @@
 
 This Chrome extension provides a prompt counter and timer for OpenAI's ChatGPT-4 model. It's especially useful for users who need to track the number of prompts sent to the model and the remaining time for the current session.
 
+![alt text](https://i.imgur.com/iAoXfJk.png)
+
 ## Features
 
 - Counts the number of prompts sent to the ChatGPT-4 model
