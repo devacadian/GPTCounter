@@ -1,3 +1,10 @@
+chrome.runtime.onMessage.addListener(function(message, sender, sendResponse) {
+    if (message.type && message.type === 'updateUI') {
+        updateDisplay();
+    }
+});
+
+
 document.addEventListener('DOMContentLoaded', function() {
     updateDisplay();
 

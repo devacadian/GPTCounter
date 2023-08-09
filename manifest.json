@@ -1,18 +1,24 @@
 {
-    "manifest_version": 2,
+    "manifest_version": 3,
     "name": "ChatGPT Prompt Counter",
     "version": "1.0",
-    "description": "Counts the number of prompts sent to ChatGPT within a 3-hour period",
+    "description": "Counts the number of prompts sent to ChatGPT within a 3-hour period.",
     "permissions": [
         "webRequest",
-        "*://chat.openai.com/*",
         "storage"
     ],
-    "background": {
-        "scripts": ["background.js"],
-        "persistent": true
+    "icons": {
+        "16": "openai_icon.png",
+        "48": "openai_icon.png",
+        "128": "openai_icon.png"
     },
-    "browser_action": {
+    "host_permissions": [
+        "*://chat.openai.com/*"
+    ],
+    "background": {
+        "service_worker": "background.js"
+    },
+    "action": {
         "default_popup": "popup.html"
     }
 }

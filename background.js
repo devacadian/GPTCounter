@@ -24,15 +24,15 @@ chrome.webRequest.onBeforeRequest.addListener(
             chrome.storage.local.set({'count': timestamps.length, 'time': remainingTime});
         }
     },
-    {urls: ["<all_urls>"]}
+{urls: ["*://chat.openai.com/*"]}
 );
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     if (request.reset) {
         timestamps = [];
         chrome.storage.local.set({'count': timestamps.length, 'time': 3*60*60}, function() {
-            document.getElementById('count').textContent = '0';
-            document.getElementById('time').textContent = '3:00:00';
+            // Send a message to popup.js to update the UI
+            chrome.runtime.sendMessage({ type: 'updateUI', count: '0', time: '3:00:00' });
         });
     }
     if (request.model) {
