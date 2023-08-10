@@ -1,6 +1,6 @@
 # ChatGPT Prompt Counter Chrome Extension
 
-This Chrome extension provides a prompt counter and timer for OpenAI's ChatGPT-4 model. It's especially useful for users who need to track the number of prompts sent to the model and the remaining time for the current session.
+This Chrome extension provides a prompt counter and timer for OpenAI's ChatGPT-4 model. Download it from the chrome store [here](https://chrome.google.com/webstore/detail/chatgpt-prompt-counter/djmjoepmfiooddjlmnagnnanhbjpdjkp). It's especially useful for users who need to track the number of prompts sent to the model and the remaining time for the current session.
 
 ## Features
 
@@ -16,6 +16,10 @@ This Chrome extension provides a prompt counter and timer for OpenAI's ChatGPT-4
 The extension listens for HTTP POST requests sent to OpenAI's ChatGPT backend API. Each prompt sent to the model is counted and the time is tracked. The data is updated every second and is displayed in a popup that can be accessed by clicking the extension icon in the Chrome toolbar.
 
 ## Installation
+
+1. **Download From the Chrome Store:** Download the chrome extension from the published chrome store listing [here](https://chrome.google.com/webstore/detail/chatgpt-prompt-counter/djmjoepmfiooddjlmnagnnanhbjpdjkp).
+
+OR
 
 1. Clone or download this repository to your local machine.
 2. Open Google Chrome and navigate to `chrome://extensions`.
