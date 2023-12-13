@@ -1,6 +1,5 @@
 let timestamps = [];
 let timer = null;
-let modelName = '';
 
 function startTimer() {
     timer = setInterval(function() {
@@ -15,7 +14,7 @@ function startTimer() {
 
 chrome.webRequest.onBeforeRequest.addListener(
     function(details) {
-        if (details.method === 'POST' && details.url.includes('https://chat.openai.com/backend-api/conversation') && !modelName.includes('GPT-3.5')) {
+        if (details.method === 'POST' && details.url.includes('https://chat.openai.com/backend-api/conversation')) {
             timestamps.push(Date.now());
             if (timer === null) {
                 startTimer();
@@ -27,15 +26,3 @@ chrome.webRequest.onBeforeRequest.addListener(
 {urls: ["*://chat.openai.com/*"]}
 );
 
-chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-    if (request.reset) {
-        timestamps = [];
-        chrome.storage.local.set({'count': timestamps.length, 'time': 3*60*60}, function() {
-            // Send a message to popup.js to update the UI
-            chrome.runtime.sendMessage({ type: 'updateUI', count: '0', time: '3:00:00' });
-        });
-    }
-    if (request.model) {
-        modelName = request.model;
-    }
-});
